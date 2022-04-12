@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
+import static java.lang.String.valueOf;
 
 public class parameterizedTestResheno {
 
@@ -23,7 +24,7 @@ public class parameterizedTestResheno {
 
     @BeforeEach
     void beforeEach() {
-       // open("https://resheno.me");
+      //  open("https://resheno.me");
         Configuration.fastSetValue = true;
     }
 
@@ -56,25 +57,6 @@ public class parameterizedTestResheno {
         $(".form button").click();
         $(".modal-content").shouldHave(text(testResult));
     }
-   /* static Stream<Arguments> calculatorTestResheno() {
-        return Stream.of(
-                Arguments.of("150", "2000", "Грузовых", "Нет", "Да"),
-                Arguments.of("1500", "200", "Легковых", "Да", "Нет")
-        );
-    }
-
-    @MethodSource(value = "calculatorTestResheno")
-    @ParameterizedTest(name = "тест калькулятора")
-    void calculatorTest(String numbersOfCars, String litersOfFuel, String typeOfCars, boolean aBooleanValue) {
-        open("https://resheno.me/servisy-kompanii/toplivnye-karty");
-        $(".input-simple").setValue(numbersOfCars);
-        $(".input-simple", 1).setValue(litersOfFuel);
-        $(".filter-item").selectOptionByValue(typeOfCars);
-
-       // System.out.println("String:" + firstArg + " list: " + secondArg.toString() + " boolean: " + aBooleanValue);
-    }
-
-    */
 
     static Stream<Arguments> searchTyresTest() {
         return Stream.of(
@@ -94,13 +76,8 @@ public class parameterizedTestResheno {
         $(".multiselect__tags", 1).click();
         $(byText(height)).click();
         $(byText(car)).click();
-        $(".product-catalog").shouldHave(ownText(car + " " + width + "/" + height));
-
-        sleep(10000);
-
-
-
-
+        $(".product-title").shouldHave(text(car));
+        $(".product-name").shouldHave(text(width + "/" + height));
 
 }
 
