@@ -10,8 +10,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class parameterizedTestResheno {
@@ -33,8 +33,8 @@ public class parameterizedTestResheno {
         closeWebDriver();
     }
 
-    @ValueSource(strings = {"С€РёРЅРѕРјРѕРЅС‚Р°Р¶Р°", "РјРѕРµРє"})
-    @ParameterizedTest(name = "РџСЂРѕРІРµСЂРєР° РѕС‚РєСЂС‹С‚РёСЏ РІРєР»Р°РґРєРё {0} С‡РµСЂРµР· РјРµРЅСЋ Р РµС€РµРЅРёСЏ")
+    @ValueSource(strings = {"шиномонтажа", "моек"})
+    @ParameterizedTest(name = "Проверка открытия вкладки {0} через меню Решения")
     void reshenoOpenSolution(String solution) {
         $(".nav-menu-list button", 0).hover();
         $(byText(solution)).click();
@@ -42,11 +42,11 @@ public class parameterizedTestResheno {
     }
 
     @CsvSource(value = {
-            "РўРµСЃС‚ Р СѓСЃ/ 9005000505/ auto@test.ru/ РєРѕРјРјРµРЅС‚/ РЎРїР°СЃРёР±Рѕ, РјС‹ СЃРєРѕСЂРѕ СЃ РІР°РјРё СЃРІСЏР¶РµРјСЃСЏ!",
-            "Test Eng/ 9005000505/ auto@test.ru/ comment/ РЎРїР°СЃРёР±Рѕ, РјС‹ СЃРєРѕСЂРѕ СЃ РІР°РјРё СЃРІСЏР¶РµРјСЃСЏ!"
+            "Тест Рус/ 9005000505/ auto@test.ru/ коммент/ Спасибо, мы скоро с вами свяжемся!",
+            "Test Eng/ 9005000505/ auto@test.ru/ comment/ Спасибо, мы скоро с вами свяжемся!"
     },
             delimiter = '/')
-    @ParameterizedTest(name = "РџСЂРѕРІРµСЂРєР° РѕС‚РїСЂР°РІРєРё Р·Р°СЏРІРєРё СЃ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ {0}")
+    @ParameterizedTest(name = "Проверка отправки заявки с главной страницы {0}")
     void reshenoTestLeads(String clientName, String phoneNumber, String clientEmail, String clientComment, String testResult) {
         $(".header-action").click();
         $(".wrap-form-group input", 0).setValue(clientName);
@@ -56,15 +56,15 @@ public class parameterizedTestResheno {
         $(".form button").click();
         $(".modal-content").shouldHave(text(testResult));
     }
-    static Stream<Arguments> calculatorTestResheno() {
+   /* static Stream<Arguments> calculatorTestResheno() {
         return Stream.of(
-                Arguments.of("150", "2000", "Р“СЂСѓР·РѕРІС‹С…", "РќРµС‚", "Р”Р°"),
-                Arguments.of("1500", "200", "Р›РµРіРєРѕРІС‹С…", "Р”Р°", "РќРµС‚")
+                Arguments.of("150", "2000", "Грузовых", "Нет", "Да"),
+                Arguments.of("1500", "200", "Легковых", "Да", "Нет")
         );
     }
 
     @MethodSource(value = "calculatorTestResheno")
-    @ParameterizedTest(name = "С‚РµСЃС‚ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР°")
+    @ParameterizedTest(name = "тест калькулятора")
     void calculatorTest(String numbersOfCars, String litersOfFuel, String typeOfCars, boolean aBooleanValue) {
         open("https://resheno.me/servisy-kompanii/toplivnye-karty");
         $(".input-simple").setValue(numbersOfCars);
@@ -73,5 +73,35 @@ public class parameterizedTestResheno {
 
        // System.out.println("String:" + firstArg + " list: " + secondArg.toString() + " boolean: " + aBooleanValue);
     }
+
+    */
+
+    static Stream<Arguments> searchTyresTest() {
+        return Stream.of(
+                Arguments.of("Москва", "175", "65", "Nokian"),
+                Arguments.of("Санкт-Петербург", "225", "75", "MICHELIN")
+        );
+    }
+
+    @MethodSource(value = "searchTyresTest")
+    @ParameterizedTest(name = "поиск шин")
+    void calculatorTest(String city, String width, String height, String car) {
+        open("https://resheno.me/katalog-tovarov/shiny");
+        $(withText(city)).click();
+        $(".location-delivery").shouldHave(text(city));
+        $(".multiselect__tags").click();
+        $(byText(width)).click();
+        $(".multiselect__tags", 1).click();
+        $(byText(height)).click();
+        $(byText(car)).click();
+        $(".product-catalog").shouldHave(ownText(car + " " + width + "/" + height));
+
+        sleep(10000);
+
+
+
+
+
+}
 
 }
