@@ -34,8 +34,8 @@ public class parameterizedTestResheno {
         closeWebDriver();
     }
 
-    @ValueSource(strings = {"шиномонтажа", "моек"})
-    @ParameterizedTest(name = "Проверка открытия вкладки {0} через меню Решения")
+    @ValueSource(strings = {"С€РёРЅРѕРјРѕРЅС‚Р°Р¶Р°", "РјРѕРµРє"})
+    @ParameterizedTest(name = "РџСЂРѕРІРµСЂРєР° РѕС‚РєСЂС‹С‚РёСЏ РІРєР»Р°РґРєРё {0} С‡РµСЂРµР· РјРµРЅСЋ Р РµС€РµРЅРёСЏ")
     void reshenoOpenSolution(String solution) {
         $(".nav-menu-list button", 0).hover();
         $(byText(solution)).click();
@@ -43,11 +43,11 @@ public class parameterizedTestResheno {
     }
 
     @CsvSource(value = {
-            "Тест Рус/ 9005000505/ auto@test.ru/ коммент/ Спасибо, мы скоро с вами свяжемся!",
-            "Test Eng/ 9005000505/ auto@test.ru/ comment/ Спасибо, мы скоро с вами свяжемся!"
+            "РўРµСЃС‚ Р СѓСЃ/ 9005000505/ auto@test.ru/ РєРѕРјРјРµРЅС‚/ РЎРїР°СЃРёР±Рѕ, РјС‹ СЃРєРѕСЂРѕ СЃ РІР°РјРё СЃРІСЏР¶РµРјСЃСЏ!",
+            "Test Eng/ 9005000505/ auto@test.ru/ comment/ РЎРїР°СЃРёР±Рѕ, РјС‹ СЃРєРѕСЂРѕ СЃ РІР°РјРё СЃРІСЏР¶РµРјСЃСЏ!"
     },
             delimiter = '/')
-    @ParameterizedTest(name = "Проверка отправки заявки с главной страницы {0}")
+    @ParameterizedTest(name = "РџСЂРѕРІРµСЂРєР° РѕС‚РїСЂР°РІРєРё Р·Р°СЏРІРєРё СЃ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ {0}")
     void reshenoTestLeads(String clientName, String phoneNumber, String clientEmail, String clientComment, String testResult) {
         $(".header-action").click();
         $(".wrap-form-group input", 0).setValue(clientName);
@@ -60,13 +60,13 @@ public class parameterizedTestResheno {
 
     static Stream<Arguments> searchTyresTest() {
         return Stream.of(
-                Arguments.of("Москва", "175", "65", "Nokian"),
-                Arguments.of("Санкт-Петербург", "225", "75", "MICHELIN")
+                Arguments.of("РњРѕСЃРєРІР°", "175", "65", "Nokian"),
+                Arguments.of("РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі", "225", "75", "MICHELIN")
         );
     }
 
     @MethodSource(value = "searchTyresTest")
-    @ParameterizedTest(name = "поиск шин")
+    @ParameterizedTest(name = "РїРѕРёСЃРє С€РёРЅ")
     void calculatorTest(String city, String width, String height, String car) {
         open("https://resheno.me/katalog-tovarov/shiny");
         $(withText(city)).click();
