@@ -24,7 +24,7 @@ public class parameterizedTestResheno {
 
     @BeforeEach
     void beforeEach() {
-      //  open("https://resheno.me");
+        open("https://resheno.me");
         Configuration.fastSetValue = true;
     }
 
@@ -68,7 +68,7 @@ public class parameterizedTestResheno {
     @MethodSource(value = "searchTyresTest")
     @ParameterizedTest(name = "поиск шин")
     void calculatorTest(String city, String width, String height, String car) {
-        open("https://resheno.me/katalog-tovarov/shiny");
+        open("/katalog-tovarov/shiny");
         $(withText(city)).click();
         $(".location-delivery").shouldHave(text(city));
         $(".multiselect__tags").click();
