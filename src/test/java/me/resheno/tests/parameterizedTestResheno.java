@@ -66,7 +66,7 @@ public class parameterizedTestResheno {
     }
 
     @MethodSource(value = "searchTyresTest")
-    @ParameterizedTest(name = "поиск шин")
+    @ParameterizedTest(name = "Проверка поиска шин")
     void calculatorTest(String city, String width, String height, String car) {
         open("/katalog-tovarov/shiny");
         $(withText(city)).click();
