@@ -13,9 +13,8 @@ import java.util.stream.Stream;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
-import static java.lang.String.valueOf;
 
-public class parameterizedTestResheno {
+public class ParameterizedTestResheno {
 
     @BeforeAll
     static void beforeAll() {
@@ -27,7 +26,6 @@ public class parameterizedTestResheno {
         open("https://resheno.me");
         Configuration.fastSetValue = true;
     }
-
 
     @AfterEach
     void afterEach() {
@@ -43,8 +41,8 @@ public class parameterizedTestResheno {
     }
 
     @CsvSource(value = {
-            "Тест Рус/ 9005000505/ auto@test.ru/ коммент/ Спасибо, мы скоро с вами свяжемся!",
-            "Test Eng/ 9005000505/ auto@test.ru/ comment/ Спасибо, мы скоро с вами свяжемся!"
+        "Тест Рус/ 9005000505/ auto@test.ru/ коммент/ Спасибо, мы скоро с вами свяжемся!",
+        "Test Eng/ 9005000505/ auto@test.ru/ comment/ Спасибо, мы скоро с вами свяжемся!"
     },
             delimiter = '/')
     @ParameterizedTest(name = "Проверка отправки заявки с главной страницы {0}")
